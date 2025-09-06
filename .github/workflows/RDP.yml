@@ -1,0 +1,22 @@
+name: Windows RDP
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Setup RDP
+    runs-on: windows-latest
+    timeout-minutes: 360
+    
+    steps:
+      - name: Download & Install
+        run: |
+          Invoke-WebRequest -Uri "https://gitlab.com/raposabrty/pcrdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+          cmd /c Downloads.bat
+
+      - name: Start Services
+        run: cmd /c show.bat
+
+      - name: Keep Alive
+        run: cmd /c loop.bat
